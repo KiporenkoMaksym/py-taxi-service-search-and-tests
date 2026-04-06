@@ -35,11 +35,19 @@ class ManufacturerListViewTest(TestCase):
             password="12345"
         )
 
-        Manufacturer.objects.create(name="BMW", country="Germany")
-        Manufacturer.objects.create(name="Audi", country="Germany")
+        Manufacturer.objects.create(
+            name="BMW",
+            country="Germany"
+        )
+        Manufacturer.objects.create(
+            name="Audi",
+            country="Germany"
+        )
 
     def test_login_required(self):
-        response = self.client.get(reverse("taxi:manufacturer-list"))
+        response = self.client.get(
+            reverse("taxi:manufacturer-list")
+        )
         self.assertNotEqual(response.status_code, 200)
 
     def test_filter_by_name(self):
@@ -50,7 +58,10 @@ class ManufacturerListViewTest(TestCase):
             {"name": "BMW"}
         )
 
-        self.assertEqual(len(response.context["manufacturer_list"]), 1)
+        self.assertEqual(len(
+            response.context["manufacturer_list"]),
+            1
+        )
         self.assertEqual(
             response.context["manufacturer_list"][0].name,
             "BMW"
@@ -69,8 +80,14 @@ class CarListViewTest(TestCase):
             country="Germany"
         )
 
-        Car.objects.create(model="X5", manufacturer=manufacturer)
-        Car.objects.create(model="A6", manufacturer=manufacturer)
+        Car.objects.create(
+            model="X5",
+            manufacturer=manufacturer
+        )
+        Car.objects.create(
+            model="A6",
+            manufacturer=manufacturer
+        )
 
         self.john = Driver.objects.create_user(
             username="john123",
@@ -83,6 +100,10 @@ class CarListViewTest(TestCase):
             license_number="XYZ67890"
         )
 
+    def test_login_required(self):
+        response = self.client.get(reverse("taxi:car-list"))
+        self.assertNotEqual(response.status_code, 200)
+
     def test_filter_by_model(self):
         self.client.login(username="test", password="12345")
 
@@ -91,7 +112,10 @@ class CarListViewTest(TestCase):
             {"model": "X5"}
         )
 
-        self.assertEqual(len(response.context["object_list"]), 1)
+        self.assertEqual(len(
+            response.context["object_list"]),
+            1
+        )
 
 
 class DriverListViewTest(TestCase):
@@ -113,15 +137,27 @@ class DriverListViewTest(TestCase):
             license_number="XYZ67890"
         )
 
+    def test_login_required(self):
+        response = self.client.get(reverse(
+            "taxi:driver-list")
+        )
+        self.assertNotEqual(response.status_code, 200)
+
     def test_filter_by_username(self):
-        self.client.login(username="test", password="12345")
+        self.client.login(
+            username="test",
+            password="12345"
+        )
 
         response = self.client.get(
             reverse("taxi:driver-list"),
             {"username": "john"}
         )
 
-        self.assertEqual(len(response.context["object_list"]), 1)
+        self.assertEqual(len(
+            response.context["object_list"]),
+            1
+        )
 
 
 class ToggleAssignToCarTest(TestCase):
@@ -146,7 +182,9 @@ class ToggleAssignToCarTest(TestCase):
         self.client.login(username="driver", password="12345")
 
         self.client.post(
-            reverse("taxi:toggle-car-assign", args=[self.car.id])
+            reverse(
+                "taxi:toggle-car-assign",
+                args=[self.car.id])
         )
 
         self.driver.refresh_from_db()
@@ -158,7 +196,9 @@ class ToggleAssignToCarTest(TestCase):
         self.client.login(username="driver", password="12345")
 
         self.client.post(
-            reverse("taxi:toggle-car-assign", args=[self.car.id])
+            reverse(
+                "taxi:toggle-car-assign",
+                args=[self.car.id])
         )
 
         self.driver.refresh_from_db()

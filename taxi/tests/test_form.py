@@ -1,7 +1,7 @@
 from django.test import TestCase
 
 from taxi.forms import DriverCreationForm, validate_license_number, DriverLicenseUpdateForm, DriverUsernameSearch, \
-    CarModelSearchForm
+    CarModelSearchForm, ManufacturerNameSearchForm
 from taxi.models import Driver
 
 
@@ -47,6 +47,23 @@ class FormsTest(TestCase):
         form = DriverUsernameSearch(data={"username": "test"})
         self.assertTrue(form.is_valid())
 
-    def test_empty_search_form(self):
+    def test_empty_driver_search_form(self):
         form = DriverUsernameSearch(data={})
         self.assertTrue(form.is_valid())
+
+    def test_car_search_form(self):
+        form = CarModelSearchForm(data={"model": "M3"})
+        self.assertTrue(form.is_valid())
+
+    def test_empty_car_search_form(self):
+        form = CarModelSearchForm(data={})
+        self.assertTrue(form.is_valid())
+
+    def test_manufacturer_search_form(self):
+        form = ManufacturerNameSearchForm(data={"name": "BMW"})
+        self.assertTrue(form.is_valid())
+
+    def test_empty_manufacturer_search_form(self):
+        form = ManufacturerNameSearchForm(data={})
+        self.assertTrue(form.is_valid())
+
