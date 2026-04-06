@@ -55,7 +55,7 @@ class ManufacturerListView(
     def get_context_data(
             self,
             *,
-            object_list = None,
+            object_list=None,
             **kwargs
     ):
         context = super(
@@ -113,7 +113,7 @@ class CarListView(
     def get_context_data(
             self,
             *,
-            object_list = None,
+            object_list=None,
             **kwargs
     ):
         context = super(
@@ -200,6 +200,7 @@ class DriverListView(
                 username__icontains=username
             )
         return queryset
+
 
 class DriverDetailView(
     LoginRequiredMixin,
