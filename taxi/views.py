@@ -1,5 +1,3 @@
-from gc import get_objects
-
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
@@ -234,7 +232,7 @@ class DriverDeleteView(
     generic.DeleteView
 ):
     model = Driver
-    success_url = reverse_lazy("")
+    success_url = reverse_lazy("taxi:driver-list")
 
 
 @login_required

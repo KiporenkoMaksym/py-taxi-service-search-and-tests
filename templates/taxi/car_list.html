@@ -12,9 +12,9 @@
     {{ search_form|crispy }}
     <input type="submit">
   </form>
-  {% if car_list %}
+  {% if object_list %}
     <ul>
-      {% for car in car_list %}
+      {% for car in object_list %}
         <li>
           <a href="{% url "taxi:car-detail" pk=car.id %} ">{{ car.id }}</a>
           {{ car.model }} ({{ car.manufacturer.name }})
