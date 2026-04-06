@@ -23,9 +23,18 @@ class IndexViewTest(TestCase):
         response = self.client.get(reverse("taxi:index"))
 
         self.assertEqual(response.status_code, 200)
-        self.assertIn("num_drivers", response.context)
-        self.assertIn("num_cars", response.context)
-        self.assertIn("num_manufacturers", response.context)
+        self.assertIn(
+            "num_drivers",
+            response.context
+        )
+        self.assertIn(
+            "num_cars",
+            response.context
+        )
+        self.assertIn(
+            "num_manufacturers",
+            response.context
+        )
 
 
 class ManufacturerListViewTest(TestCase):
@@ -48,10 +57,16 @@ class ManufacturerListViewTest(TestCase):
         response = self.client.get(
             reverse("taxi:manufacturer-list")
         )
-        self.assertNotEqual(response.status_code, 200)
+        self.assertNotEqual(
+            response.status_code,
+            200
+        )
 
     def test_filter_by_name(self):
-        self.client.login(username="test", password="12345")
+        self.client.login(
+            username="test",
+            password="12345"
+        )
 
         response = self.client.get(
             reverse("taxi:manufacturer-list"),
@@ -101,11 +116,18 @@ class CarListViewTest(TestCase):
         )
 
     def test_login_required(self):
-        response = self.client.get(reverse("taxi:car-list"))
-        self.assertNotEqual(response.status_code, 200)
+        response = self.client.get(
+            reverse("taxi:car-list")
+        )
+        self.assertNotEqual(
+            response.status_code,
+            200)
 
     def test_filter_by_model(self):
-        self.client.login(username="test", password="12345")
+        self.client.login(
+            username="test",
+            password="12345"
+        )
 
         response = self.client.get(
             reverse("taxi:car-list"),
@@ -141,7 +163,10 @@ class DriverListViewTest(TestCase):
         response = self.client.get(reverse(
             "taxi:driver-list")
         )
-        self.assertNotEqual(response.status_code, 200)
+        self.assertNotEqual(
+            response.status_code,
+            200
+        )
 
     def test_filter_by_username(self):
         self.client.login(
@@ -179,7 +204,10 @@ class ToggleAssignToCarTest(TestCase):
         )
 
     def test_add_car_to_driver(self):
-        self.client.login(username="driver", password="12345")
+        self.client.login(
+            username="driver",
+            password="12345"
+        )
 
         self.client.post(
             reverse(
@@ -193,7 +221,10 @@ class ToggleAssignToCarTest(TestCase):
     def test_remove_car_from_driver(self):
         self.driver.cars.add(self.car)
 
-        self.client.login(username="driver", password="12345")
+        self.client.login(
+            username="driver",
+            password="12345"
+        )
 
         self.client.post(
             reverse(
